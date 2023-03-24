@@ -8,7 +8,7 @@ type Mahasiswa struct {
 	ID           primitive.ObjectID `bson:"_id,omitempty" json:"_id,omitempty"`
 	Nama         string             `bson:"nama,omitempty" json:"nama,omitempty"`
 	NPM          int                `bson:"npm,omitempty" json:"npm,omitempty"`
-	Phone_Number string             `bson:"phone_number,omitempty" json:"phone_number,omitempty"`
+	Phone_Number string             `bson:"phonenumber,omitempty" json:"phonenumber,omitempty"`
 }
 
 type Matakuliah struct {
@@ -20,14 +20,14 @@ type Matakuliah struct {
 }
 
 type Waktu struct {
-	Jam_Masuk  string   `bson:"jam_masuk,omitempty" json:"jam_masuk,omitempty"`
-	Jam_Keluar string   `bson:"jam_keluar,omitempty" json:"jam_keluar,omitempty"`
+	Jam_Masuk  string   `bson:"jammasuk,omitempty" json:"jammasuk,omitempty"`
+	Jam_Keluar string   `bson:"jamkeluar,omitempty" json:"jamkeluar,omitempty"`
 	Hari       []string `bson:"hari,omitempty" json:"hari,omitempty"`
 }
 
 type Dosen struct {
 	ID            primitive.ObjectID `bson:"_id,omitempty" json:"_id,omitempty"`
-	Nama_Dosen    string             `bson:"nama_dosen,omitempty" json:"nama_dosen,omitempty"`
+	Nama_Dosen    string             `bson:"namadosen,omitempty" json:"namadosen,omitempty"`
 	NIK           string             `bson:"nik,omitempty" json:"nik,omitempty"`
 	Phone_NumberD string             `bson:"phonenumberd,omitempty" json:"phonenumberd,omitempty"`
 }
@@ -42,7 +42,7 @@ type Tugas struct {
 
 type Nilai struct {
 	ID        primitive.ObjectID `bson:"_id,omitempty" json:"_id,omitempty"`
-	All_Tugas Tugas              `bson:"all_tugas,omitempty" json:"all_tugas,omitempty"`
+	All_Tugas Tugas              `bson:"alltugas,omitempty" json:"alltugas,omitempty"`
 	UTS       int                `bson:"uts,omitempty" json:"uts,omitempty"`
 	UAS       int                `bson:"uas,omitempty" json:"uas,omitempty"`
 	Grade     Grade              `bson:"grade,omitempty" json:"grade,omitempty"`

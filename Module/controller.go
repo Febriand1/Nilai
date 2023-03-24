@@ -27,42 +27,42 @@ func InsertOneDoc(db *mongo.Database, collection string, doc interface{}) (inser
 	return insertResult.InsertedID
 }
 
-func InsertMahasiswa(db *mongo.Database, col string, nama string, npm int, phone_number string) (InsertedID interface{}) {
+func InsertMahasiswa(db *mongo.Database, col string, nama string, npm int, phonenumber string) (InsertedID interface{}) {
 	var mahasiswa model.Mahasiswa
 	mahasiswa.Nama = nama
 	mahasiswa.NPM = npm
-	mahasiswa.Phone_Number = phone_number
+	mahasiswa.Phone_Number = phonenumber
 	return InsertOneDoc(db, col, mahasiswa)
 }
 
-func InsertMatakuliah(db *mongo.Database, col string, nama_mk string, sks int, jadwal model.Waktu, pengampu model.Dosen) (InsertedID interface{}) {
+func InsertMatakuliah(db *mongo.Database, col string, namamk string, sks int, jadwal model.Waktu, pengampu model.Dosen) (InsertedID interface{}) {
 	var matakuliah model.Matakuliah
-	matakuliah.Nama_MK = nama_mk
+	matakuliah.Nama_MK = namamk
 	matakuliah.SKS = sks
 	matakuliah.Jadwal = jadwal
 	matakuliah.Pengampu = pengampu
 	return InsertOneDoc(db, col, matakuliah)
 }
 
-func InsertWaktu(db *mongo.Database, col string, jam_masuk string, jam_keluar string, hari []string) (InsertedID interface{}) {
+func InsertWaktu(db *mongo.Database, col string, jammasuk string, jamkeluar string, hari []string) (InsertedID interface{}) {
 	var waktu model.Waktu
-	waktu.Jam_Masuk = jam_masuk
-	waktu.Jam_Keluar = jam_keluar
+	waktu.Jam_Masuk = jammasuk
+	waktu.Jam_Keluar = jamkeluar
 	waktu.Hari = hari
 	return InsertOneDoc(db, col, waktu)
 }
 
-func InsertDosen(db *mongo.Database, col string, nama_dosen string, nik string, phonenumberd string) (InsertedID interface{}) {
+func InsertDosen(db *mongo.Database, col string, namadosen string, nik string, phonenumberd string) (InsertedID interface{}) {
 	var dosen model.Dosen
-	dosen.Nama_Dosen = nama_dosen
+	dosen.Nama_Dosen = namadosen
 	dosen.NIK = nik
 	dosen.Phone_NumberD = phonenumberd
 	return InsertOneDoc(db, col, dosen)
 }
 
-func InsertNilai(db *mongo.Database, col string, all_tugas model.Tugas, uts int, uas int, grade model.Grade, kategori model.Matakuliah, biodata model.Mahasiswa) (InsertedID interface{}) {
+func InsertNilai(db *mongo.Database, col string, alltugas model.Tugas, uts int, uas int, grade model.Grade, kategori model.Matakuliah, biodata model.Mahasiswa) (InsertedID interface{}) {
 	var nilai model.Nilai
-	nilai.All_Tugas = all_tugas
+	nilai.All_Tugas = alltugas
 	nilai.UTS = uts
 	nilai.UAS = uas
 	nilai.Grade = grade
@@ -125,9 +125,9 @@ func GetGradeFromMahasiswa(npm int, db *mongo.Database, col string) (nilai model
 	return nilai
 }
 
-func GetMatakuliahFromJadwal(jam_masuk string, db *mongo.Database, col string) (jam model.Matakuliah) {
+func GetMatakuliahFromJadwal(jammasuk string, db *mongo.Database, col string) (jam model.Matakuliah) {
 	jadwal := db.Collection(col)
-	filter := bson.M{"jadwal.jam_masuk": jam_masuk}
+	filter := bson.M{"jadwal.jammasuk": jammasuk}
 	err := jadwal.FindOne(context.TODO(), filter).Decode(&jam)
 	if err != nil {
 		fmt.Printf("GetMatakuliahFromJadwal: %v\n", err)
@@ -145,9 +145,9 @@ func GetMatakuliahFromNIK(nik string, db *mongo.Database, col string) (matkul mo
 	return matkul
 }
 
-func GetNilaiFromMatakuliah(nama_mk string, db *mongo.Database, col string) (data model.Nilai) {
+func GetNilaiFromMatakuliah(namamk string, db *mongo.Database, col string) (data model.Nilai) {
 	matakuliah := db.Collection(col)
-	filter := bson.M{"kategori.nama_mk": nama_mk}
+	filter := bson.M{"kategori.namamk": namamk}
 	err := matakuliah.FindOne(context.TODO(), filter).Decode(&data)
 	if err != nil {
 		fmt.Printf("GetNilaiFromMatakuliah: %v\n", err)

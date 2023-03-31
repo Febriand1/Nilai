@@ -3,11 +3,12 @@ package module
 import (
 	"context"
 	"fmt"
-	"github.com/Febriand1/Nilai/Model"
-	"github.com/aiteung/atdb"
 	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/mongo"
 	"os"
+
+	model "github.com/Febriand1/Nilai/Model"
+	"github.com/aiteung/atdb"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 var MongoString string = os.Getenv("MONGOSTRING")
@@ -60,14 +61,14 @@ func InsertDosen(db *mongo.Database, col string, namadosen string, nik string, p
 	return InsertOneDoc(db, col, dosen)
 }
 
-func InsertNilai(db *mongo.Database, col string, alltugas model.Tugas, uts int, uas int, grade model.Grade, kategori model.Matakuliah, biodata model.Mahasiswa) (InsertedID interface{}) {
+func InsertNilai(db *mongo.Database, col string, alltugas model.Tugas, uts int, uas int, grade model.Grade, kategori model.Matakuliah, absensi model.Presensi) (InsertedID interface{}) {
 	var nilai model.Nilai
 	nilai.All_Tugas = alltugas
 	nilai.UTS = uts
 	nilai.UAS = uas
 	nilai.Grade = grade
 	nilai.Kategori = kategori
-	nilai.Biodata = biodata
+	nilai.Absensi = absensi
 	return InsertOneDoc(db, col, nilai)
 }
 
@@ -169,6 +170,20 @@ func GetAllNilaiFromNamaMahasiswa(nama string, db *mongo.Database, col string) (
 	mahasiswa := db.Collection(col)
 	filter := bson.M{"biodata.nama": nama}
 	cursor, err := mahasiswa.Find(context.TODO(), filter)
+	if err != nil {
+		fmt.Println("GetALLData :", err)
+	}
+	err = cursor.All(context.TODO(), &data)
+	if err != nil {
+		fmt.Println(err)
+	}
+	return
+}
+
+func GetAllNilai(db *mongo.Database, col string) (data []model.Nilai) {
+	nilai := db.Collection(col)
+	filter := bson.M{}
+	cursor, err := nilai.Find(context.TODO(), filter)
 	if err != nil {
 		fmt.Println("GetALLData :", err)
 	}

@@ -2,105 +2,112 @@ package NPM
 
 import (
 	"fmt"
-	model "github.com/Febriand1/Nilai/Model"
-	"github.com/Febriand1/Nilai/Module"
 	"testing"
+
+	model "github.com/Febriand1/Nilai/Model"
+
+	module "github.com/Febriand1/Nilai/Module"
 )
 
 func TestInsertMahasiswa(t *testing.T) {
-	nama := "budiman"
-	npm := 121395
-	phonenumber := "083543242546"
+	nama := "irfan"
+	npm := 123578
+	phonenumber := "087653256781"
 
 	hasil := module.InsertMahasiswa(module.MongoConn, "mahasiswa", nama, npm, phonenumber)
 	fmt.Println(hasil)
+
 }
 
 func TestInsertWaktu(t *testing.T) {
-	jammasuk := "07.00"
-	jamkeluar := "10.00"
-	hari := []string{"sabtu"}
+	jammasuk := "10.00"
+	jamkeluar := "12.00"
+	hari := []string{"senin"}
 
 	hasil := module.InsertWaktu(module.MongoConn, "waktu", jammasuk, jamkeluar, hari)
 	fmt.Println(hasil)
 }
 
 func TestInsertDosen(t *testing.T) {
-	namadosen := "indra riksa herlambang"
-	nik := "123.123.123"
-	phonenumberd := "08123422542"
+	namadosen := "agung"
+	nik := "808.808.808"
+	phonenumberd := "084532524566"
 
 	hasil := module.InsertDosen(module.MongoConn, "dosen", namadosen, nik, phonenumberd)
 	fmt.Println(hasil)
 }
 
 func TestInsertMatakuliah(t *testing.T) {
-	namamk := "algoritma"
+	namamk := "sejarah"
 	sks := 2
 	jadwal := model.Waktu{
-		Jam_Masuk:  "07.00",
-		Jam_Keluar: "10.00",
-		Hari:       []string{"sabtu"},
+		Jam_Masuk:  "10.00",
+		Jam_Keluar: "12.00",
+		Hari:       []string{"senin"},
 	}
 	pengampu := model.Dosen{
-		Nama_Dosen:    "indra riksa herlambang",
-		NIK:           "123.123.123",
-		Phone_NumberD: "08123422542",
+		Nama_Dosen:    "agung",
+		NIK:           "808.808.808",
+		Phone_NumberD: "084532524566",
 	}
 	hasil := module.InsertMatakuliah(module.MongoConn, "matakuliah", namamk, sks, jadwal, pengampu)
 	fmt.Println(hasil)
 }
 
 func TestInsertTugas(t *testing.T) {
-	tugas1 := 100
-	tugas2 := 80
+	tugas1 := 90
+	tugas2 := 100
 	tugas3 := 80
-	tugas4 := 80
-	tugas5 := 100
+	tugas4 := 70
+	tugas5 := 70
 	hasil := module.InsertTugas(module.MongoConn, "tugas", tugas1, tugas2, tugas3, tugas4, tugas5)
 	fmt.Println(hasil)
 }
 
 func TestInsertNilai(t *testing.T) {
 	alltugas := model.Tugas{
-		Tugas1: 100,
-		Tugas2: 80,
+		Tugas1: 90,
+		Tugas2: 100,
 		Tugas3: 80,
-		Tugas4: 80,
-		Tugas5: 100,
+		Tugas4: 70,
+		Tugas5: 70,
 	}
 	uts := 70
-	uas := 70
+	uas := 80
 	grade := model.Grade{
-		Nama_Grade: "A",
-		Skala:      "95-100",
+		Nama_Grade: "B",
+		Skala:      "80-95",
 	}
 	kategori := model.Matakuliah{
-		Nama_MK: "algoritma",
+		Nama_MK: "sejarah",
 		SKS:     2,
 		Jadwal: model.Waktu{
-			Jam_Masuk:  "07.00",
-			Jam_Keluar: "10.00",
-			Hari:       []string{"sabtu"},
+			Jam_Masuk:  "10.00",
+			Jam_Keluar: "12.00",
+			Hari:       []string{"senin"},
 		},
 		Pengampu: model.Dosen{
-			Nama_Dosen:    "indra riksa herlambang",
-			NIK:           "123.123.123",
-			Phone_NumberD: "08123422542",
+			Nama_Dosen:    "agung",
+			NIK:           "808.808.808",
+			Phone_NumberD: "084532524566",
 		},
 	}
-	biodata := model.Mahasiswa{
-		Nama:         "budiman",
-		NPM:          121395,
-		Phone_Number: "083543242546",
+	absensi := model.Presensi{
+		Jumlah_Kehadiran: 7,
+		Biodata: model.Mahasiswa{
+			Nama:         "irfan",
+			NPM:          123578,
+			Phone_Number: "087653256781",
+		},
 	}
-	hasil := module.InsertNilai(module.MongoConn, "nilai", alltugas, uts, uas, grade, kategori, biodata)
+
+	hasil := module.InsertNilai(module.MongoConn, "nilai", alltugas, uts, uas, grade, kategori, absensi)
 	fmt.Println(hasil)
 }
 
 func TestInsertGrade(t *testing.T) {
-	namagrade := "A"
-	skala := "95-100"
+	namagrade := "B"
+	skala := "80-95"
 	hasil := module.InsertGrade(module.MongoConn, "grade", namagrade, skala)
 	fmt.Println(hasil)
 }
@@ -108,9 +115,9 @@ func TestInsertGrade(t *testing.T) {
 func TestInsertPresensi(t *testing.T) {
 	jumlahkehadiran := 7
 	biodata := model.Mahasiswa{
-		Nama:         "budiman",
-		NPM:          121395,
-		Phone_Number: "083543242546",
+		Nama:         "irfan",
+		NPM:          123578,
+		Phone_Number: "087653256781",
 	}
 	hasil := module.InsertPresensi(module.MongoConn, "presensi", jumlahkehadiran, biodata)
 	fmt.Println(hasil)
@@ -135,7 +142,7 @@ func TestGetGradeFromMahasiswa(t *testing.T) {
 }
 
 func TestGetMatakuliahFromJadwal(t *testing.T) {
-	jammasuk := "07.00"
+	jammasuk := "10.00"
 	jam := module.GetMatakuliahFromJadwal(jammasuk, module.MongoConn, "matakuliah")
 	fmt.Println(jam)
 }
@@ -162,4 +169,9 @@ func TestGetAllNilaiFromNamaMahasiswa(t *testing.T) {
 	nama := "budiman"
 	data1 := module.GetAllNilaiFromNamaMahasiswa(nama, module.MongoConn, "nilai")
 	fmt.Println(data1)
+}
+
+func TestGetAll(t *testing.T) {
+	data := module.GetAllNilai(module.MongoConn, "nilai")
+	fmt.Println(data)
 }

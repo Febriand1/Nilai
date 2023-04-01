@@ -19,16 +19,16 @@ func TestInsertMahasiswa(t *testing.T) {
 }
 
 func TestInsertWaktu(t *testing.T) {
-	jammasuk := ""
-	jamkeluar := ""
-	hari := []string{"senin"}
+	jammasuk := "06.00"
+	jamkeluar := "10.00"
+	hari := []string{"kamis, jumat, sabtu"}
 
 	hasil := module.InsertWaktu(module.MongoConn, "waktu", jammasuk, jamkeluar, hari)
 	fmt.Println(hasil)
 }
 
 func TestInsertDosen(t *testing.T) {
-	namadosen := ""
+	namadosen := "mark"
 	nik := "808.808.808"
 	phonenumberd := "084532524566"
 
@@ -37,15 +37,15 @@ func TestInsertDosen(t *testing.T) {
 }
 
 func TestInsertMatakuliah(t *testing.T) {
-	namamk := ""
-	sks := 2
+	namamk := "fisika"
+	sks := 4
 	jadwal := model.Waktu{
-		Jam_Masuk:  "",
-		Jam_Keluar: "",
-		Hari:       []string{"senin"},
+		Jam_Masuk:  "06.00",
+		Jam_Keluar: "10.00",
+		Hari:       []string{"kamis, jumat, sabtu"},
 	}
 	pengampu := model.Dosen{
-		Nama_Dosen:    "",
+		Nama_Dosen:    "mark",
 		NIK:           "808.808.808",
 		Phone_NumberD: "084532524566",
 	}
@@ -78,12 +78,12 @@ func TestInsertNilai(t *testing.T) {
 		Skala:      "80-95",
 	}
 	kategori := model.Matakuliah{
-		Nama_MK: "",
+		Nama_MK: "fisika",
 		SKS:     2,
 		Jadwal: model.Waktu{
-			Jam_Masuk:  "",
-			Jam_Keluar: "",
-			Hari:       []string{"senin"},
+			Jam_Masuk:  "06.00",
+			Jam_Keluar: "10.00",
+			Hari:       []string{"kamis, jumat, sabtu"},
 		},
 		Pengampu: model.Dosen{
 			Nama_Dosen:    "",

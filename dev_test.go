@@ -12,7 +12,7 @@ import (
 func TestInsertMahasiswa(t *testing.T) {
 	nama := "yati"
 	npm := 590486
-	phonenumber := ""
+	phonenumber := "087654567895"
 
 	hasil := module.InsertMahasiswa(module.MongoConn, "mahasiswa", nama, npm, phonenumber)
 	fmt.Println(hasil)
@@ -20,7 +20,7 @@ func TestInsertMahasiswa(t *testing.T) {
 }
 
 func TestInsertWaktu(t *testing.T) {
-	jammasuk := "10.00"
+	jammasuk := ""
 	jamkeluar := "12.00"
 	hari := []string{"senin"}
 
@@ -29,7 +29,7 @@ func TestInsertWaktu(t *testing.T) {
 }
 
 func TestInsertDosen(t *testing.T) {
-	namadosen := "agung"
+	namadosen := ""
 	nik := "808.808.808"
 	phonenumberd := "084532524566"
 
@@ -41,12 +41,12 @@ func TestInsertMatakuliah(t *testing.T) {
 	namamk := "sejarah"
 	sks := 2
 	jadwal := model.Waktu{
-		Jam_Masuk:  "10.00",
+		Jam_Masuk:  "",
 		Jam_Keluar: "12.00",
 		Hari:       []string{"senin"},
 	}
 	pengampu := model.Dosen{
-		Nama_Dosen:    "agung",
+		Nama_Dosen:    "",
 		NIK:           "808.808.808",
 		Phone_NumberD: "084532524566",
 	}
@@ -82,12 +82,12 @@ func TestInsertNilai(t *testing.T) {
 		Nama_MK: "sejarah",
 		SKS:     2,
 		Jadwal: model.Waktu{
-			Jam_Masuk:  "10.00",
+			Jam_Masuk:  "",
 			Jam_Keluar: "12.00",
 			Hari:       []string{"senin"},
 		},
 		Pengampu: model.Dosen{
-			Nama_Dosen:    "agung",
+			Nama_Dosen:    "",
 			NIK:           "808.808.808",
 			Phone_NumberD: "084532524566",
 		},
@@ -97,7 +97,7 @@ func TestInsertNilai(t *testing.T) {
 		Biodata: model.Mahasiswa{
 			Nama:         "yati",
 			NPM:          590486,
-			Phone_Number: "",
+			Phone_Number: "087654567895",
 		},
 	}
 
@@ -117,7 +117,7 @@ func TestInsertPresensi(t *testing.T) {
 	biodata := model.Mahasiswa{
 		Nama:         "yati",
 		NPM:          590486,
-		Phone_Number: "",
+		Phone_Number: "087654567895",
 	}
 	hasil := module.InsertPresensi(module.MongoConn, "presensi", jumlahkehadiran, biodata)
 	fmt.Println(hasil)
@@ -142,7 +142,7 @@ func TestGetGradeFromMahasiswa(t *testing.T) {
 }
 
 func TestGetMatakuliahFromJadwal(t *testing.T) {
-	jammasuk := "10.00"
+	jammasuk := ""
 	jam := module.GetMatakuliahFromJadwal(jammasuk, module.MongoConn, "matakuliah")
 	fmt.Println(jam)
 }

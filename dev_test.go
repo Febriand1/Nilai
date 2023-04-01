@@ -37,7 +37,7 @@ func TestInsertDosen(t *testing.T) {
 }
 
 func TestInsertMatakuliah(t *testing.T) {
-	namamk := "fisika"
+	namamk := ""
 	sks := 4
 	jadwal := model.Waktu{
 		Jam_Masuk:  "06.00",
@@ -78,7 +78,7 @@ func TestInsertNilai(t *testing.T) {
 		Skala:      "80-95",
 	}
 	kategori := model.Matakuliah{
-		Nama_MK: "fisika",
+		Nama_MK: "",
 		SKS:     4,
 		Jadwal: model.Waktu{
 			Jam_Masuk:  "06.00",

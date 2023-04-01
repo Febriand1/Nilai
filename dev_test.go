@@ -10,18 +10,17 @@ import (
 )
 
 func TestInsertMahasiswa(t *testing.T) {
-	nama := "yati"
+	nama := "rahman"
 	npm := 590486
 	phonenumber := "087654567895"
 
 	hasil := module.InsertMahasiswa(module.MongoConn, "mahasiswa", nama, npm, phonenumber)
 	fmt.Println(hasil)
-
 }
 
 func TestInsertWaktu(t *testing.T) {
 	jammasuk := ""
-	jamkeluar := "12.00"
+	jamkeluar := ""
 	hari := []string{"senin"}
 
 	hasil := module.InsertWaktu(module.MongoConn, "waktu", jammasuk, jamkeluar, hari)
@@ -38,11 +37,11 @@ func TestInsertDosen(t *testing.T) {
 }
 
 func TestInsertMatakuliah(t *testing.T) {
-	namamk := "sejarah"
+	namamk := ""
 	sks := 2
 	jadwal := model.Waktu{
 		Jam_Masuk:  "",
-		Jam_Keluar: "12.00",
+		Jam_Keluar: "",
 		Hari:       []string{"senin"},
 	}
 	pengampu := model.Dosen{
@@ -79,11 +78,11 @@ func TestInsertNilai(t *testing.T) {
 		Skala:      "80-95",
 	}
 	kategori := model.Matakuliah{
-		Nama_MK: "sejarah",
+		Nama_MK: "",
 		SKS:     2,
 		Jadwal: model.Waktu{
 			Jam_Masuk:  "",
-			Jam_Keluar: "12.00",
+			Jam_Keluar: "",
 			Hari:       []string{"senin"},
 		},
 		Pengampu: model.Dosen{
@@ -95,7 +94,7 @@ func TestInsertNilai(t *testing.T) {
 	absensi := model.Presensi{
 		Jumlah_Kehadiran: 7,
 		Biodata: model.Mahasiswa{
-			Nama:         "yati",
+			Nama:         "rahman",
 			NPM:          590486,
 			Phone_Number: "087654567895",
 		},
@@ -115,7 +114,7 @@ func TestInsertGrade(t *testing.T) {
 func TestInsertPresensi(t *testing.T) {
 	jumlahkehadiran := 7
 	biodata := model.Mahasiswa{
-		Nama:         "yati",
+		Nama:         "rahman",
 		NPM:          590486,
 		Phone_Number: "087654567895",
 	}

@@ -10,9 +10,9 @@ import (
 )
 
 func TestInsertMahasiswa(t *testing.T) {
-	nama := "irfan"
-	npm := 123578
-	phonenumber := "087653256781"
+	nama := "bima"
+	npm := 1249453
+	phonenumber := ""
 
 	hasil := module.InsertMahasiswa(module.MongoConn, "mahasiswa", nama, npm, phonenumber)
 	fmt.Println(hasil)
@@ -95,9 +95,9 @@ func TestInsertNilai(t *testing.T) {
 	absensi := model.Presensi{
 		Jumlah_Kehadiran: 7,
 		Biodata: model.Mahasiswa{
-			Nama:         "irfan",
-			NPM:          123578,
-			Phone_Number: "087653256781",
+			Nama:         "bima",
+			NPM:          1249453,
+			Phone_Number: "",
 		},
 	}
 
@@ -115,9 +115,9 @@ func TestInsertGrade(t *testing.T) {
 func TestInsertPresensi(t *testing.T) {
 	jumlahkehadiran := 7
 	biodata := model.Mahasiswa{
-		Nama:         "irfan",
-		NPM:          123578,
-		Phone_Number: "087653256781",
+		Nama:         "bima",
+		NPM:          1249453,
+		Phone_Number: "",
 	}
 	hasil := module.InsertPresensi(module.MongoConn, "presensi", jumlahkehadiran, biodata)
 	fmt.Println(hasil)

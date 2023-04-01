@@ -3,8 +3,9 @@ package module
 import (
 	"context"
 	"fmt"
-	"go.mongodb.org/mongo-driver/bson"
 	"os"
+
+	"go.mongodb.org/mongo-driver/bson"
 
 	model "github.com/Febriand1/Nilai/Model"
 	"github.com/aiteung/atdb"

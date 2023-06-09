@@ -64,17 +64,6 @@ func InsertDosen(db *mongo.Database, col string, namadosen string, nik string, p
 	return InsertOneDoc(db, col, dosen)
 }
 
-func InsertNilai(db *mongo.Database, col string, alltugas model.Tugas, uts int, uas int, grade model.Grade, kategori model.Matakuliah, absensi model.Presensi) (InsertedID interface{}) {
-	var nilai model.Nilai
-	nilai.All_Tugas = alltugas
-	nilai.UTS = uts
-	nilai.UAS = uas
-	nilai.Grade = grade
-	nilai.Kategori = kategori
-	nilai.Absensi = absensi
-	return InsertOneDoc(db, col, nilai)
-}
-
 func InsertTugas(db *mongo.Database, col string, tugas1 int, tugas2 int, tugas3 int, tugas4 int, tugas5 int) (InsertedID interface{}) {
 	var tugas model.Tugas
 	tugas.Tugas1 = tugas1
@@ -183,6 +172,8 @@ func GetAllNilaiFromNamaMahasiswa(nama string, db *mongo.Database, col string) (
 	return
 }
 
+
+
 func GetAllNilai(db *mongo.Database, col string) (data []model.Nilai) {
 	nilai := db.Collection(col)
 	filter := bson.M{}
@@ -210,6 +201,17 @@ func GetNilaiFromID(_id primitive.ObjectID, db *mongo.Database, col string) (mhs
 	return mhs, nil
 }
 
+func InsertNilai(db *mongo.Database, col string, alltugas model.Tugas, uts int, uas int, grade model.Grade, kategori model.Matakuliah, absensi model.Presensi) (InsertedID interface{}) {
+	var nilai model.Nilai
+	nilai.All_Tugas = alltugas
+	nilai.UTS = uts
+	nilai.UAS = uas
+	nilai.Grade = grade
+	nilai.Kategori = kategori
+	nilai.Absensi = absensi
+	return InsertOneDoc(db, col, nilai)
+}
+
 func DeleteNilaiByID(_id primitive.ObjectID, db *mongo.Database, col string) error {
 	mahasiswa := db.Collection(col)
 	filter := bson.M{"_id": _id}
@@ -223,5 +225,29 @@ func DeleteNilaiByID(_id primitive.ObjectID, db *mongo.Database, col string) err
 		return fmt.Errorf("data with ID %s not found", _id)
 	}
 
+	return nil
+}
+
+func UpdateNilai(db *mongo.Database, col string, id primitive.ObjectID, alltugas model.Tugas, uts int, uas int, grade model.Grade, kategori model.Matakuliah, absensi model.Presensi) (err error) {
+	filter := bson.M{"_id": id}
+	update := bson.M{
+		"$set": bson.M{
+			"alltugas"	: alltugas,
+			"uts"		: uts,
+			"uas"		: uas,
+			"grade"		: grade,
+			"kategori"	: kategori,
+			"absensi"	: absensi,
+		},
+	}
+	result, err := db.Collection(col).UpdateOne(context.Background(), filter, update)
+	if err != nil {
+		fmt.Printf("UpdateNilai: %v\n", err)
+		return
+	}
+	if result.ModifiedCount == 0 {
+		err = errors.New("No data has been changed with the specified ID")
+		return
+	}
 	return nil
 }

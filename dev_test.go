@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	model "github.com/Febriand1/Nilai/Model"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 
 	module "github.com/Febriand1/Nilai/Module"
 )
@@ -173,4 +174,37 @@ func TestGetAllNilaiFromNamaMahasiswa(t *testing.T) {
 func TestGetAll(t *testing.T) {
 	data := module.GetAllNilai(module.MongoConn, "nilai")
 	fmt.Println(data)
+}
+
+
+func TestGetNilaiFromID(t *testing.T) {
+	id := "6426d338c606ea58bc4f8ebd"
+	objectID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		t.Fatalf("error converting id to ObjectID: %v", err)
+	}
+	mhs, err := module.GetNilaiFromID(objectID, module.MongoConn, "nilai")
+	if err != nil {
+		t.Fatalf("error calling GetNilaiFromID: %v", err)
+	}
+	fmt.Println(mhs)
+}
+
+func TestDeleteMahasiswaByID(t *testing.T) {
+	id := "6426d338c606ea58bc4f8ebd" // ID data yang ingin dihapus
+	objectID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		t.Fatalf("error converting id to ObjectID: %v", err)
+	}
+
+	err = module.DeleteNilaiByID(objectID, module.MongoConn, "nilai")
+	if err != nil {
+		t.Fatalf("error calling DeleteNilaiByID: %v", err)
+	}
+
+	// Verifikasi bahwa data telah dihapus dengan melakukan pengecekan menggunakan GetPresensiFromID
+	_, err = module.GetNilaiFromID(objectID, module.MongoConn, "nilai")
+	if err == nil {
+		t.Fatalf("expected data to be deleted, but it still exists")
+	}
 }

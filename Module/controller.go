@@ -2,10 +2,12 @@ package module
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"os"
 
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 
 	model "github.com/Febriand1/Nilai/Model"
 	"github.com/aiteung/atdb"
@@ -193,4 +195,33 @@ func GetAllNilai(db *mongo.Database, col string) (data []model.Nilai) {
 		fmt.Println(err)
 	}
 	return
+}
+
+func GetNilaiFromID(_id primitive.ObjectID, db *mongo.Database, col string) (mhs model.Nilai, errs error) {
+	mahasiswa := db.Collection(col)
+	filter := bson.M{"_id": _id}
+	err := mahasiswa.FindOne(context.TODO(), filter).Decode(&mhs)
+	if err != nil {
+		if errors.Is(err, mongo.ErrNoDocuments) {
+			return mhs, fmt.Errorf("no data found for ID %s", _id)
+		}
+		return mhs, fmt.Errorf("error retrieving data for ID %s: %s", _id, err.Error())
+	}
+	return mhs, nil
+}
+
+func DeleteNilaiByID(_id primitive.ObjectID, db *mongo.Database, col string) error {
+	mahasiswa := db.Collection(col)
+	filter := bson.M{"_id": _id}
+
+	result, err := mahasiswa.DeleteOne(context.TODO(), filter)
+	if err != nil {
+		return fmt.Errorf("error deleting data for ID %s: %s", _id, err.Error())
+	}
+
+	if result.DeletedCount == 0 {
+		return fmt.Errorf("data with ID %s not found", _id)
+	}
+
+	return nil
 }

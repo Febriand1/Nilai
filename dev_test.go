@@ -151,6 +151,47 @@ func TestGetNilaiFromID(t *testing.T) {
 	fmt.Println(mhs)
 }
 
+// func TestInsertNilai(t *testing.T) {
+// 	alltugas := model.Tugas{
+// 		Tugas1: 90,
+// 		Tugas2: 100,
+// 		Tugas3: 80,
+// 		Tugas4: 70,
+// 		Tugas5: 70,
+// 	}
+// 	uts := 70
+// 	uas := 80
+// 	grade := model.Grade{
+// 		Nama_Grade: "B",
+// 		Skala:      "80-95",
+// 	}
+// 	kategori := model.Matakuliah{
+// 		Nama_MK: "",
+// 		SKS:     4,
+// 		Jadwal: model.Waktu{
+// 			Jam_Masuk:  "06.00",
+// 			Jam_Keluar: "10.00",
+// 			Hari:       []string{"kamis, jumat, sabtu"},
+// 		},
+// 		Pengampu: model.Dosen{
+// 			Nama_Dosen:    "mark",
+// 			NIK:           "808.808.808",
+// 			Phone_NumberD: "084532524566",
+// 		},
+// 	}
+// 	absensi := model.Presensi{
+// 		Jumlah_Kehadiran: 7,
+// 		Biodata: model.Mahasiswa{
+// 			Nama:         "jeki",
+// 			NPM:          1294653,
+// 			Phone_Number: "081234543421",
+// 		},
+// 	}
+
+// 	hasil := module.InsertNilai(module.MongoConn, "nilai", alltugas, uts, uas, grade, kategori, absensi)
+// 	fmt.Println(hasil)
+// }
+
 func TestInsertNilai(t *testing.T) {
 	alltugas := model.Tugas{
 		Tugas1: 90,
@@ -188,8 +229,11 @@ func TestInsertNilai(t *testing.T) {
 		},
 	}
 
-	hasil := module.InsertNilai(module.MongoConn, "nilai", alltugas, uts, uas, grade, kategori, absensi)
-	fmt.Println(hasil)
+	insertedID, err := module.InsertNilai(module.MongoConn, "nilai", alltugas, uts, uas, grade, kategori, absensi)
+	if err != nil {
+		t.Errorf("Error inserting data: %v", err)
+	}
+	fmt.Printf("Data berhasil disimpan dengan id %s", insertedID.Hex())
 }
 
 func TestDeleteMahasiswaByID(t *testing.T) {

@@ -201,15 +201,33 @@ func GetNilaiFromID(_id primitive.ObjectID, db *mongo.Database, col string) (mhs
 	return mhs, nil
 }
 
-func InsertNilai(db *mongo.Database, col string, alltugas model.Tugas, uts int, uas int, grade model.Grade, kategori model.Matakuliah, absensi model.Presensi) (InsertedID interface{}) {
-	var nilai model.Nilai
-	nilai.All_Tugas = alltugas
-	nilai.UTS = uts
-	nilai.UAS = uas
-	nilai.Grade = grade
-	nilai.Kategori = kategori
-	nilai.Absensi = absensi
-	return InsertOneDoc(db, col, nilai)
+// func InsertNilai(db *mongo.Database, col string, alltugas model.Tugas, uts int, uas int, grade model.Grade, kategori model.Matakuliah, absensi model.Presensi) (InsertedID interface{}) {
+// 	var nilai model.Nilai
+// 	nilai.All_Tugas = alltugas
+// 	nilai.UTS = uts
+// 	nilai.UAS = uas
+// 	nilai.Grade = grade
+// 	nilai.Kategori = kategori
+// 	nilai.Absensi = absensi
+// 	return InsertOneDoc(db, col, nilai)
+// }
+
+func InsertNilai(db *mongo.Database, col string, alltugas model.Tugas, uts int, uas int, grade model.Grade, kategori model.Matakuliah, absensi model.Presensi) (insertedID primitive.ObjectID, err error) {
+	nilai := bson.M{
+		"alltugas":    alltugas,
+		"uts":     uts,
+		"uas":     uas,
+		"grade": grade,
+		"kategori":      kategori,
+		"absensi":      absensi,
+	}
+	result, err := db.Collection(col).InsertOne(context.Background(), nilai)
+	if err != nil {
+		fmt.Printf("InsertNilai: %v\n", err)
+		return
+	}
+	insertedID = result.InsertedID.(primitive.ObjectID)
+	return insertedID, nil
 }
 
 func DeleteNilaiByID(_id primitive.ObjectID, db *mongo.Database, col string) error {

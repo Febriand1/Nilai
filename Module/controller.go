@@ -173,7 +173,7 @@ func GetAllNilaiFromNamaMahasiswa(nama string, db *mongo.Database, col string) (
 }
 
 
-
+//TB
 func GetAllNilai(db *mongo.Database, col string) (data []model.Nilai) {
 	nilai := db.Collection(col)
 	filter := bson.M{}
@@ -251,3 +251,4 @@ func UpdateNilai(db *mongo.Database, col string, id primitive.ObjectID, alltugas
 	}
 	return nil
 }
+//TB

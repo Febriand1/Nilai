@@ -132,6 +132,7 @@ func TestGetAllNilaiFromNamaMahasiswa(t *testing.T) {
 	fmt.Println(data1)
 }
 
+//TB
 func TestGetAll(t *testing.T) {
 	data := module.GetAllNilai(module.MongoConn, "nilai")
 	fmt.Println(data)
@@ -330,3 +331,4 @@ func TestUpdateNilai(t *testing.T) {
 		t.Fatalf("Document was not updated as expected")
 	}
 }
+//TB

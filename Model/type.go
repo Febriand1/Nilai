@@ -57,7 +57,6 @@ type Grade struct {
 
 type Presensi struct {
 	ID               primitive.ObjectID `bson:"_id,omitempty" json:"_id,omitempty"`
-	MahasiswaID      primitive.ObjectID `bson:"mahasiswa_id,omitempty" json:"mahasiswa_id,omitempty"`
 	Jumlah_Kehadiran int                `bson:"jumlahkehadiran,omitempty" json:"jumlahkehadiran,omitempty"`
 	Biodata          Mahasiswa          `bson:"biodata,omitempty" json:"biodata,omitempty"`
 }

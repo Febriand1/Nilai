@@ -341,9 +341,9 @@ func TestUpdateNilai(t *testing.T) {
 		},
 	}
 
-	// Call UpdatePresensi with the test document ID and updated fields
+	// Call UpdateNilai with the test document ID and updated fields
 	if err := module.UpdateNilai(module.MongoConn, col, doc.ID, alltugas, uts, uas, grade, kategori, absensi); err != nil {
-		t.Fatalf("UpdatePresensi failed: %v", err)
+		t.Fatalf("UpdateNilai failed: %v", err)
 	}
 
 	// Retrieve the updated document from the collection

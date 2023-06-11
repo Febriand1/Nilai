@@ -214,12 +214,12 @@ func GetNilaiFromID(_id primitive.ObjectID, db *mongo.Database, col string) (mhs
 
 func InsertNilai(db *mongo.Database, col string, alltugas model.Tugas, uts int, uas int, grade model.Grade, kategori model.Matakuliah, absensi model.Presensi) (insertedID primitive.ObjectID, err error) {
 	nilai := bson.M{
-		"alltugas":    alltugas,
-		"uts":     uts,
-		"uas":     uas,
-		"grade": grade,
-		"kategori":      kategori,
-		"absensi":      absensi,
+		"alltugas":	alltugas,
+		"uts":     	uts,
+		"uas":     	uas,
+		"grade":   	grade,
+		"kategori": kategori,
+		"absensi":  absensi,
 	}
 	result, err := db.Collection(col).InsertOne(context.Background(), nilai)
 	if err != nil {

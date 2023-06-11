@@ -208,12 +208,12 @@ func TestInsertNilai(t *testing.T) {
 		Skala:      "80-95",
 	}
 	kategori := model.Matakuliah{
-		Nama_MK: "",
+		Nama_MK: "sejarah",
 		SKS:     4,
 		Jadwal: model.Waktu{
 			Jam_Masuk:  "06.00",
 			Jam_Keluar: "10.00",
-			Hari:       []string{"kamis, jumat, sabtu"},
+			Hari:       []string{"kamis", "jumat", "sabtu"},
 		},
 		Pengampu: model.Dosen{
 			Nama_Dosen:    "mark",

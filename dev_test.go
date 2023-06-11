@@ -299,7 +299,7 @@ func TestUpdateNilai(t *testing.T) {
 			Jadwal: model.Waktu{
 				Jam_Masuk: "07.00",
 				Jam_Keluar: "08.00",
-				Hari: []string{"senin, sabtu"},
+				Hari: []string{"senin", "sabtu"},
 			},
 			Pengampu: model.Dosen{
 				Nama_Dosen: "marsudin",

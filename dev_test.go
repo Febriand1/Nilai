@@ -3,6 +3,7 @@ package NPM
 import (
 	"context"
 	"fmt"
+	"reflect"
 	"testing"
 
 	model "github.com/Febriand1/Nilai/Model"
@@ -258,25 +259,6 @@ func TestDeleteMahasiswaByID(t *testing.T) {
 func TestUpdateNilai(t *testing.T) {
 	col := "nilai"
 
-	// var jamKerja1 = model.JamKerja{
-	// 	Durasi:     8,
-	// 	Jam_masuk:  "08:00",
-	// 	Jam_keluar: "16:00",
-	// 	Gmt:        7,
-	// 	Hari:       []string{"Senin", "Rabu", "Kamis"},
-	// 	Shift:      1,
-	// 	Piket_tim:  "Piket A",
-	// }
-	// var jamKerja2 = model.JamKerja{
-	// 	Durasi:     8,
-	// 	Jam_masuk:  "09:00",
-	// 	Jam_keluar: "17:00",
-	// 	Gmt:        7,
-	// 	Hari:       []string{"Sabtu"},
-	// 	Shift:      2,
-	// 	Piket_tim:  "",
-	// }
-
 	// Define a test document
 	doc := model.Nilai{
 		ID: primitive.NewObjectID(),
@@ -294,15 +276,15 @@ func TestUpdateNilai(t *testing.T) {
 			Skala: "95-100",
 		},
 		Kategori: model.Matakuliah{
-			Nama_MK: "fisika",
+			Nama_MK: "Fisika",
 			SKS: 2,
 			Jadwal: model.Waktu{
 				Jam_Masuk: "07.00",
 				Jam_Keluar: "08.00",
-				Hari: []string{"senin", "sabtu"},
+				Hari: []string{"Senin", "Sabtu"},
 			},
 			Pengampu: model.Dosen{
-				Nama_Dosen: "marsudin",
+				Nama_Dosen: "Marsudin",
 				NIK: "111.111.111.111",
 				Phone_NumberD: "0812521231",
 			},
@@ -310,7 +292,7 @@ func TestUpdateNilai(t *testing.T) {
 		Absensi: model.Presensi{
 			Jumlah_Kehadiran: 7,
 			Biodata: model.Mahasiswa{
-				Nama: "suparman",
+				Nama: "Suparman",
 				NPM: 111223,
 				Phone_Number: "083543242546",
 			},
@@ -337,15 +319,15 @@ func TestUpdateNilai(t *testing.T) {
 		Skala: "40-55",
 	};
 	kategori:= model.Matakuliah{
-		Nama_MK: "bahasa  indonesia",
+		Nama_MK: "Bahasa  Indonesia",
 		SKS: 2,
 		Jadwal: model.Waktu{
 			Jam_Masuk: "10.00",
 			Jam_Keluar: "12.00",
-			Hari: []string{"rabu"},
+			Hari: []string{"Rabu"},
 		},
 		Pengampu: model.Dosen{
-			Nama_Dosen: "nurhadi",
+			Nama_Dosen: "Nurhadi",
 			NIK: "123.456.789",
 			Phone_NumberD: "087659342321",
 		},
@@ -371,7 +353,16 @@ func TestUpdateNilai(t *testing.T) {
 	}
 
 	// Verify that the document was updated as expected
-	if updatedDoc.All_Tugas != alltugas || updatedDoc.UTS != uts || updatedDoc.UAS != uas || updatedDoc.Grade != grade || updatedDoc.Absensi != absensi 	{
+// 	if updatedDoc.All_Tugas != alltugas || updatedDoc.UTS != uts || updatedDoc.UAS != uas || updatedDoc.Grade != grade || updatedDoc.Kategori != kategori || updatedDoc.Absensi != absensi 	{
+// 		t.Fatalf("Document was not updated as expected")
+// 	}
+
+	if !reflect.DeepEqual(updatedDoc.All_Tugas, alltugas) ||
+	updatedDoc.UTS != uts ||
+	updatedDoc.UAS != uas ||
+	!reflect.DeepEqual(updatedDoc.Grade, grade) ||
+	!reflect.DeepEqual(updatedDoc.Kategori, kategori) ||
+	!reflect.DeepEqual(updatedDoc.Absensi, absensi) {
 		t.Fatalf("Document was not updated as expected")
 	}
 }

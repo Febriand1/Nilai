@@ -52,11 +52,23 @@ type Nilai struct {
 
 type Grade struct {
 	Nama_Grade string `bson:"namagrade,omitempty" json:"namagrade,omitempty"`
-	Skala      string `bson:"skala,omitempty" json:"skala,omitempty"`
+	Rata_Rata      string `bson:"rata_rata,omitempty" json:"rata_rata,omitempty"`
 }
 
 type Presensi struct {
 	ID               primitive.ObjectID `bson:"_id,omitempty" json:"_id,omitempty"`
 	Jumlah_Kehadiran int                `bson:"jumlahkehadiran,omitempty" json:"jumlahkehadiran,omitempty"`
 	Biodata          Mahasiswa          `bson:"biodata,omitempty" json:"biodata,omitempty"`
+}
+
+type Admin struct{
+	ID              primitive.ObjectID 	`bson:"_id,omitempty" json:"_id,omitempty"`
+	Username 		string             	`bson:"username,omitempty" json:"username,omitempty"`
+	Password        string          	`bson:"password,omitempty" json:"password,omitempty"`
+}
+
+type User struct{
+	ID              primitive.ObjectID 	`bson:"_id,omitempty" json:"_id,omitempty"`
+	UsernameM 		string             	`bson:"usernamem,omitempty" json:"usernamem,omitempty"`
+	PasswordM       string          	`bson:"passwordm,omitempty" json:"passwordm,omitempty"`
 }

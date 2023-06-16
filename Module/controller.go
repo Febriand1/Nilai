@@ -81,10 +81,10 @@ func InsertPresensi(db *mongo.Database, col string, jumlahkehadiran int, biodata
 	return InsertOneDoc(db, col, presensi)
 }
 
-func InsertGrade(db *mongo.Database, col string, namagrade string, skala string) (InsertedID interface{}) {
+func InsertGrade(db *mongo.Database, col string, namagrade string, rata_rata string) (InsertedID interface{}) {
 	var grade model.Grade
 	grade.Nama_Grade = namagrade
-	grade.Skala = skala
+	grade.Rata_Rata = rata_rata
 	return InsertOneDoc(db, col, grade)
 }
 
@@ -270,3 +270,40 @@ func UpdateNilai(db *mongo.Database, col string, id primitive.ObjectID, alltugas
 	return nil
 }
 //TB
+
+//login
+func InsertAdmin(db *mongo.Database, col string, username string, password string) (InsertedID interface{}) {
+	var admin model.Admin
+	admin.Username = username
+	admin.Password = password
+	return InsertOneDoc(db, col, admin)
+}
+
+func GetAdminFromID(username string, db *mongo.Database, col string) (admin model.Admin) {
+	un := db.Collection(col)
+	filter := bson.M{"username": username}
+	err := un.FindOne(context.TODO(), filter).Decode(&admin)
+	if err != nil {
+		fmt.Printf("GetAdminFromID: %v\n", err)
+	}
+	return admin
+}
+
+func InsertUser(db *mongo.Database, col string, usernamem string, passwordm string) (InsertedID interface{}) {
+	var user model.User
+	user.UsernameM = usernamem
+	user.PasswordM = passwordm
+	return InsertOneDoc(db, col, user)
+}
+
+func GetUserFromID(usernamem string, db *mongo.Database, col string) (user model.User) {
+	un := db.Collection(col)
+	filter := bson.M{"usernamem": usernamem}
+	err := un.FindOne(context.TODO(), filter).Decode(&user)
+	if err != nil {
+		fmt.Printf("GetUserFromID: %v\n", err)
+	}
+	return user
+}
+
+//login

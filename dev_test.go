@@ -205,7 +205,7 @@ func TestInsertNilai(t *testing.T) {
 	uas := 80
 	grade := model.Grade{
 		Nama_Grade: "B",
-		Skala:      "80-95",
+		Rata_Rata:      "80-95",
 	}
 	kategori := model.Matakuliah{
 		Nama_MK: "sejarah",
@@ -273,7 +273,7 @@ func TestUpdateNilai(t *testing.T) {
 		UAS:     100,
 		Grade: model.Grade{
 			Nama_Grade: "A",
-			Skala: "95-100",
+			Rata_Rata: "95-100",
 		},
 		Kategori: model.Matakuliah{
 			Nama_MK: "Fisika",
@@ -316,7 +316,7 @@ func TestUpdateNilai(t *testing.T) {
 	uas:= 50;
 	grade:= model.Grade{
 		Nama_Grade: "D",
-		Skala: "40-55",
+		Rata_Rata: "40-55",
 	};
 	kategori:= model.Matakuliah{
 		Nama_MK: "Bahasa  Indonesia",

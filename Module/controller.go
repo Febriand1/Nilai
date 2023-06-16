@@ -272,38 +272,58 @@ func UpdateNilai(db *mongo.Database, col string, id primitive.ObjectID, alltugas
 //TB
 
 //login
-func InsertAdmin(db *mongo.Database, col string, username string, password string) (InsertedID interface{}) {
-	var admin model.Admin
-	admin.Username = username
-	admin.Password = password
-	return InsertOneDoc(db, col, admin)
-}
-
-func GetAdminFromID(username string, db *mongo.Database, col string) (admin model.Admin) {
-	un := db.Collection(col)
-	filter := bson.M{"username": username}
-	err := un.FindOne(context.TODO(), filter).Decode(&admin)
-	if err != nil {
-		fmt.Printf("GetAdminFromID: %v\n", err)
+func InsertAdmin(db *mongo.Database, col string, username string, password string) (insertedID primitive.ObjectID, err error) {
+	admin := bson.M{
+		"username":	username,
+		"password": password,
 	}
-	return admin
-}
-
-func InsertUser(db *mongo.Database, col string, usernamem string, passwordm string) (InsertedID interface{}) {
-	var user model.User
-	user.UsernameM = usernamem
-	user.PasswordM = passwordm
-	return InsertOneDoc(db, col, user)
-}
-
-func GetUserFromID(usernamem string, db *mongo.Database, col string) (user model.User) {
-	un := db.Collection(col)
-	filter := bson.M{"usernamem": usernamem}
-	err := un.FindOne(context.TODO(), filter).Decode(&user)
+	result, err := db.Collection(col).InsertOne(context.Background(), admin)
 	if err != nil {
-		fmt.Printf("GetUserFromID: %v\n", err)
+		fmt.Printf("InsertAdmin: %v\n", err)
+		return
 	}
-	return user
+	insertedID = result.InsertedID.(primitive.ObjectID)
+	return insertedID, nil
+}
+
+func GetAdminFromID(_id primitive.ObjectID, db *mongo.Database, col string) (adm model.Admin, errs error) {
+	admin := db.Collection(col)
+	filter := bson.M{"_id": _id}
+	err := admin.FindOne(context.TODO(), filter).Decode(&adm)
+	if err != nil {
+		if errors.Is(err, mongo.ErrNoDocuments) {
+			return adm, fmt.Errorf("no data found for ID %s", _id)
+		}
+		return adm, fmt.Errorf("error retrieving data for ID %s: %s", _id, err.Error())
+	}
+	return adm, nil
+}
+
+func InsertUser(db *mongo.Database, col string, usernamem string, passwordm string) (insertedID primitive.ObjectID, err error) {
+	user := bson.M{
+		"usernamem": usernamem,
+		"passwordm": passwordm,
+	}
+	result, err := db.Collection(col).InsertOne(context.Background(), user)
+	if err != nil {
+		fmt.Printf("InsertUser: %v\n", err)
+		return
+	}
+	insertedID = result.InsertedID.(primitive.ObjectID)
+	return insertedID, nil
+}
+
+func GetUserFromID(_id primitive.ObjectID, db *mongo.Database, col string) (usr model.User, errs error) {
+	user := db.Collection(col)
+	filter := bson.M{"_id": _id}
+	err := user.FindOne(context.TODO(), filter).Decode(&usr)
+	if err != nil {
+		if errors.Is(err, mongo.ErrNoDocuments) {
+			return usr, fmt.Errorf("no data found for ID %s", _id)
+		}
+		return usr, fmt.Errorf("error retrieving data for ID %s: %s", _id, err.Error())
+	}
+	return usr, nil
 }
 
 //login

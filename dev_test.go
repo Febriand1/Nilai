@@ -382,6 +382,11 @@ func TestGetAdminFromID(t *testing.T) {
 	fmt.Println(adm)
 }
 
+func TestGetAdmin(t *testing.T) {
+	data := module.GetAdmin(module.MongoConn, "admin")
+	fmt.Println(data)
+}
+
 func TestInsertAdmin(t *testing.T) {
 	username := "admin"
 	password := "admin"
@@ -404,6 +409,11 @@ func TestGetUserFromID(t *testing.T) {
 		t.Fatalf("error calling GetUserFromID: %v", err)
 	}
 	fmt.Println(usr)
+}
+
+func TestGetUser(t *testing.T) {
+	data := module.GetUser(module.MongoConn, "user")
+	fmt.Println(data)
 }
 
 func TestInsertUser(t *testing.T) {

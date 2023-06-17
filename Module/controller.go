@@ -286,6 +286,20 @@ func InsertAdmin(db *mongo.Database, col string, username string, password strin
 	return insertedID, nil
 }
 
+func GetAdmin(db *mongo.Database, col string) (data []model.Admin) {
+	admin := db.Collection(col)
+	filter := bson.M{}
+	cursor, err := admin.Find(context.TODO(), filter)
+	if err != nil {
+		fmt.Println("GetALLData :", err)
+	}
+	err = cursor.All(context.TODO(), &data)
+	if err != nil {
+		fmt.Println(err)
+	}
+	return
+}
+
 func GetAdminFromID(_id primitive.ObjectID, db *mongo.Database, col string) (adm model.Admin, errs error) {
 	admin := db.Collection(col)
 	filter := bson.M{"_id": _id}
@@ -311,6 +325,20 @@ func InsertUser(db *mongo.Database, col string, usernamem string, passwordm stri
 	}
 	insertedID = result.InsertedID.(primitive.ObjectID)
 	return insertedID, nil
+}
+
+func GetUser(db *mongo.Database, col string) (data []model.User) {
+	user := db.Collection(col)
+	filter := bson.M{}
+	cursor, err := user.Find(context.TODO(), filter)
+	if err != nil {
+		fmt.Println("GetALLData :", err)
+	}
+	err = cursor.All(context.TODO(), &data)
+	if err != nil {
+		fmt.Println(err)
+	}
+	return
 }
 
 func GetUserFromID(_id primitive.ObjectID, db *mongo.Database, col string) (usr model.User, errs error) {

@@ -369,61 +369,82 @@ func TestUpdateNilai(t *testing.T) {
 //TB
 
 //login
-func TestGetAdminFromID(t *testing.T) {
-	id := "648c83cd71eea58d1eb8f9ac"
-	objectID, err := primitive.ObjectIDFromHex(id)
-	if err != nil {
-		t.Fatalf("error converting id to ObjectID: %v", err)
-	}
-	adm, err := module.GetAdminFromID(objectID, module.MongoConn, "admin")
-	if err != nil {
-		t.Fatalf("error calling GetAdminFromID: %v", err)
-	}
-	fmt.Println(adm)
-}
-
-func TestGetAdmin(t *testing.T) {
-	data := module.GetAdmin(module.MongoConn, "admin")
-	fmt.Println(data)
-}
-
-func TestInsertAdmin(t *testing.T) {
+func TestLoginAdmin(t *testing.T) {
 	username := "admin"
 	password := "admin"
 
-	insertedID, err := module.InsertAdmin(module.MongoConn, "admin", username, password)
+	authenticated, err := module.LoginAdmin(module.MongoConn, "admin", username, password)
 	if err != nil {
-		t.Errorf("Error inserting data: %v", err)
+		t.Errorf("Error authenticating admin: %v", err)
 	}
-	fmt.Printf("Data berhasil disimpan dengan id %s", insertedID.Hex())
-}
 
-func TestGetUserFromID(t *testing.T) {
-	id := "648c8502b0847440750f7db1"
-	objectID, err := primitive.ObjectIDFromHex(id)
-	if err != nil {
-		t.Fatalf("error converting id to ObjectID: %v", err)
+	if !authenticated {
+		t.Errorf("Admin authentication failed")
+	} else {
+		fmt.Println("Admin authenticated successfully")
 	}
-	usr, err := module.GetUserFromID(objectID, module.MongoConn, "user")
-	if err != nil {
-		t.Fatalf("error calling GetUserFromID: %v", err)
-	}
-	fmt.Println(usr)
-}
-
-func TestGetUser(t *testing.T) {
-	data := module.GetUser(module.MongoConn, "user")
-	fmt.Println(data)
-}
-
-func TestInsertUser(t *testing.T) {
-	usernamem := "budiman"
-	passwordm := "budiman"
-
-	insertedID, err := module.InsertUser(module.MongoConn, "user", usernamem, passwordm)
-	if err != nil {
-		t.Errorf("Error inserting data: %v", err)
-	}
-	fmt.Printf("Data berhasil disimpan dengan id %s", insertedID.Hex())
 }
 //login
+
+
+
+
+// //login
+// func TestGetAdminFromID(t *testing.T) {
+// 	id := "648c83cd71eea58d1eb8f9ac"
+// 	objectID, err := primitive.ObjectIDFromHex(id)
+// 	if err != nil {
+// 		t.Fatalf("error converting id to ObjectID: %v", err)
+// 	}
+// 	adm, err := module.GetAdminFromID(objectID, module.MongoConn, "admin")
+// 	if err != nil {
+// 		t.Fatalf("error calling GetAdminFromID: %v", err)
+// 	}
+// 	fmt.Println(adm)
+// }
+
+// func TestGetAdmin(t *testing.T) {
+// 	data := module.GetAdmin(module.MongoConn, "admin")
+// 	fmt.Println(data)
+// }
+
+// func TestInsertAdmin(t *testing.T) {
+// 	username := "admin"
+// 	password := "admin"
+
+// 	insertedID, err := module.InsertAdmin(module.MongoConn, "admin", username, password)
+// 	if err != nil {
+// 		t.Errorf("Error inserting data: %v", err)
+// 	}
+// 	fmt.Printf("Data berhasil disimpan dengan id %s", insertedID.Hex())
+// }
+
+// func TestGetUserFromID(t *testing.T) {
+// 	id := "648c8502b0847440750f7db1"
+// 	objectID, err := primitive.ObjectIDFromHex(id)
+// 	if err != nil {
+// 		t.Fatalf("error converting id to ObjectID: %v", err)
+// 	}
+// 	usr, err := module.GetUserFromID(objectID, module.MongoConn, "user")
+// 	if err != nil {
+// 		t.Fatalf("error calling GetUserFromID: %v", err)
+// 	}
+// 	fmt.Println(usr)
+// }
+
+// func TestGetUser(t *testing.T) {
+// 	data := module.GetUser(module.MongoConn, "user")
+// 	fmt.Println(data)
+// }
+
+// func TestInsertUser(t *testing.T) {
+// 	usernamem := "budiman"
+// 	passwordm := "budiman"
+
+// 	insertedID, err := module.InsertUser(module.MongoConn, "user", usernamem, passwordm)
+// 	if err != nil {
+// 		t.Errorf("Error inserting data: %v", err)
+// 	}
+// 	fmt.Printf("Data berhasil disimpan dengan id %s", insertedID.Hex())
+// }
+// //login

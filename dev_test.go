@@ -378,10 +378,10 @@ func TestLoginAdmin(t *testing.T) {
 		t.Errorf("Error authenticating admin: %v", err)
 	}
 
-	if !authenticated {
-		t.Errorf("Admin authentication failed")
-	} else {
+	if authenticated {
 		fmt.Println("Admin authenticated successfully")
+	} else {
+		t.Errorf("Admin authentication failed")
 	}
 }
 //login

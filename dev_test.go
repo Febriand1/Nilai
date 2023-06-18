@@ -69,7 +69,7 @@ func TestInsertTugas(t *testing.T) {
 
 func TestInsertGrade(t *testing.T) {
 	namagrade := "B"
-	rata_rata := 80.0
+	rata_rata := "80"
 	hasil := module.InsertGrade(module.MongoConn, "grade", namagrade, rata_rata)
 	fmt.Println(hasil)
 }
@@ -205,7 +205,7 @@ func TestInsertNilai(t *testing.T) {
 	uas := 80
 	grade := model.Grade{
 		Nama_Grade: "B",
-		Rata_Rata:      80.0,
+		Rata_Rata:      "80",
 	}
 	kategori := model.Matakuliah{
 		Nama_MK: "sejarah",
@@ -273,7 +273,7 @@ func TestUpdateNilai(t *testing.T) {
 		UAS:     100,
 		Grade: model.Grade{
 			Nama_Grade: "A",
-			Rata_Rata: 95.0,
+			Rata_Rata: "95",
 		},
 		Kategori: model.Matakuliah{
 			Nama_MK: "Fisika",
@@ -316,7 +316,7 @@ func TestUpdateNilai(t *testing.T) {
 	uas:= 50;
 	grade:= model.Grade{
 		Nama_Grade: "D",
-		Rata_Rata: 40.0,
+		Rata_Rata: "40",
 	};
 	kategori:= model.Matakuliah{
 		Nama_MK: "Bahasa  Indonesia",

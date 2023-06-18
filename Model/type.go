@@ -52,7 +52,7 @@ type Nilai struct {
 
 type Grade struct {
 	Nama_Grade 		string `bson:"namagrade,omitempty" json:"namagrade,omitempty"`
-	Rata_Rata      	string `bson:"rata_rata,omitempty" json:"rata_rata,omitempty"`
+	Skala      		string `bson:"skala,omitempty" json:"skala,omitempty"`
 }
 
 type Presensi struct {

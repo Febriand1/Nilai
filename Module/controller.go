@@ -81,10 +81,10 @@ func InsertPresensi(db *mongo.Database, col string, jumlahkehadiran int, biodata
 	return InsertOneDoc(db, col, presensi)
 }
 
-func InsertGrade(db *mongo.Database, col string, namagrade string, rata_rata string) (InsertedID interface{}) {
+func InsertGrade(db *mongo.Database, col string, namagrade string, skala string) (InsertedID interface{}) {
 	var grade model.Grade
 	grade.Nama_Grade = namagrade
-	grade.Rata_Rata = rata_rata
+	grade.Skala = skala
 	return InsertOneDoc(db, col, grade)
 }
 

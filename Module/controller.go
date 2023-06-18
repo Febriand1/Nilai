@@ -278,13 +278,13 @@ func LoginAdmin(db *mongo.Database, col string, username string, password string
 		"password": password,
 	}
 
-	count, err := db.Collection(col).CountDocuments(context.Background(), filter)
+	result, err := db.Collection(col).CountDocuments(context.Background(), filter)
 	if err != nil {
 		fmt.Printf("LoginAdmin: %v\n", err)
 		return false, err
 	}
 
-	if count > 0 {
+	if result == 1 {
 		return true, nil
 	}
 

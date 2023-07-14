@@ -133,6 +133,17 @@ func TestGetAllNilaiFromNamaMahasiswa(t *testing.T) {
 	fmt.Println(data1)
 }
 
+
+func TestGetAllMahasiswa(t *testing.T) {
+	data := module.GetAllNilai(module.MongoConn, "mahasiswa")
+	fmt.Println(data)
+}
+
+func TestGetAllMatakuliah(t *testing.T) {
+	data := module.GetAllNilai(module.MongoConn, "matakuliah")
+	fmt.Println(data)
+}
+
 //TB
 func TestGetAll(t *testing.T) {
 	data := module.GetAllNilai(module.MongoConn, "nilai")

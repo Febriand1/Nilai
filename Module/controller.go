@@ -173,6 +173,36 @@ func GetAllNilaiFromNamaMahasiswa(nama string, db *mongo.Database, col string) (
 }
 
 
+func GetMahasiswa(db *mongo.Database, col string) (data []model.Mahasiswa) {
+	mahasiswa := db.Collection(col)
+	filter := bson.M{}
+	cursor, err := mahasiswa.Find(context.TODO(), filter)
+	if err != nil {
+		fmt.Println("GetALLData :", err)
+	}
+	err = cursor.All(context.TODO(), &data)
+	if err != nil {
+		fmt.Println(err)
+	}
+	return
+}
+
+
+func GetMatakuliah(db *mongo.Database, col string) (data []model.Matakuliah) {
+	matakuliah := db.Collection(col)
+	filter := bson.M{}
+	cursor, err := matakuliah.Find(context.TODO(), filter)
+	if err != nil {
+		fmt.Println("GetALLData :", err)
+	}
+	err = cursor.All(context.TODO(), &data)
+	if err != nil {
+		fmt.Println(err)
+	}
+	return
+}
+
+
 //TB
 func GetAllNilai(db *mongo.Database, col string) (data []model.Nilai) {
 	nilai := db.Collection(col)

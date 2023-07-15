@@ -67,8 +67,6 @@ type Admin struct{
 	Password        string          	`bson:"password,omitempty" json:"password,omitempty"`
 }
 
-type User struct{
-	ID              primitive.ObjectID 	`bson:"_id,omitempty" json:"_id,omitempty"`
-	UsernameM 		string             	`bson:"usernamem,omitempty" json:"usernamem,omitempty"`
-	PasswordM       string          	`bson:"passwordm,omitempty" json:"passwordm,omitempty"`
+type Token struct{
+	Token_String              string          	`bson:"tokenstring,omitempty" json:"tokenstring,omitempty"`
 }
